@@ -1,0 +1,4 @@
+[gd_resource type="PlaceholderTexture3D" format=3 uid="uid://5wr83uriaegv"]
+
+[resource]
+size = Vector3i(128, 128, 128)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://p06gf2xc2cc"]
+[gd_scene load_steps=9 format=3 uid="uid://p06gf2xc2cc"]
 
 [ext_resource type="PackedScene" uid="uid://b11dhc2mlx4d4" path="res://Scenes/Hangar.tscn" id="1_q2wk0"]
 [ext_resource type="PackedScene" uid="uid://bx4608scjynpg" path="res://Scenes/Outside.tscn" id="2_ynrhl"]
@@ -6,16 +6,55 @@
 [ext_resource type="PackedScene" uid="uid://bplxirpbbh5ck" path="res://Scenes/Controllers/FPSCharacter.tscn" id="5_6wse5"]
 [ext_resource type="PackedScene" uid="uid://b1wrv31em1a0m" path="res://Scenes/MenuLayer.tscn" id="5_nnn85"]
 
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_y80om"]
+exposure_sensitivity = 200.0
+auto_exposure_enabled = true
+auto_exposure_min_sensitivity = 100.0
+auto_exposure_max_sensitivity = 1200.0
+
+[sub_resource type="ImageTexture3D" id="ImageTexture3D_non04"]
+
+[sub_resource type="FogMaterial" id="FogMaterial_d32hi"]
+density = 0.02
+albedo = Color(0.305882, 0.290196, 0.282353, 1)
+height_falloff = 1e-05
+edge_fade = 0.0870552
+density_texture = SubResource("ImageTexture3D_non04")
+
 [node name="Main" type="Node3D"]
 
 [node name="Hangar" parent="." instance=ExtResource("1_q2wk0")]
+
+[node name="DirectionalLight3D" parent="Hangar" index="7"]
+light_intensity_lux = 104972.0
+light_color = Color(1, 0.933333, 0.803922, 1)
+light_energy = 1.262
+light_indirect_energy = 0.822
+directional_shadow_mode = 2
+directional_shadow_split_1 = 0.441
+directional_shadow_split_2 = 0.595
+directional_shadow_split_3 = 0.924
+directional_shadow_blend_splits = true
 
 [node name="Outside" parent="." instance=ExtResource("2_ynrhl")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("3_cdcts")
+camera_attributes = SubResource("CameraAttributesPractical_y80om")
 
 [node name="MenuLayer" parent="." instance=ExtResource("5_nnn85")]
 
 [node name="FPSCharacter" parent="." instance=ExtResource("5_6wse5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.39674)
+
+[node name="FogVolume" type="FogVolume" parent="."]
+transform = Transform3D(0.325982, 0, 0, 0, -0.781673, 0.362543, 0, -0.623689, -0.454378, -0.0217963, 0.656078, -6.8735)
+size = Vector3(9.09056, 0.159288, 11.4595)
+
+[node name="FogVolume2" type="FogVolume" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.2504, 0.380462, 3.59729)
+size = Vector3(60.2964, 16.081, 29.767)
+material = SubResource("FogMaterial_d32hi")
+
+[editable path="Hangar"]
+[editable path="Hangar/WorldEnvironment"]
